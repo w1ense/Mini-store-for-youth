@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<title>Контакты</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+  }
+
+  h1 {
+    text-align: center;
+    color: #333;
+  }
+
+  .contacts-container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .contact-icon {
+    font-size: 24px;
+    width: 40px;
+    text-align: center;
+    margin-right: 15px;
+    color: #0066cc;
+  }
+
+  .contact-info {
+    font-size: 18px;
+    color: #555;
+  }
+
+  /* Для ссылок */
+  .contact-info a {
+    color: #0066cc;
+    text-decoration: none;
+  }
+
+  .contact-info a:hover {
+    text-decoration: underline;
+  }
+
+  /* Мобильная адаптация */
+  @media(max-width: 600px) {
+    .contact-item {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .contact-icon {
+      margin-bottom: 10px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<h1>Наши контакты</h1>
+<div class="contacts-container">
+
+  <div class="contact-item">
+    <div class="contact-icon">📞</div>
+    <div class="contact-info">Телефон: <a href="tel:+71234567890">+7 123 456 78 90</a></div>
+  </div>
+
+  <div class="contact-item">
+    <div class="contact-icon">📧</div>
+    <div class="contact-info">Email: <a href="mailto:support@example.com">ivanivanov@gmail.com</a></div>
+  </div>
+
+  <div class="contact-item">
+    <div class="contact-icon">📍</div>
+    <div class="contact-info">Адрес: г. Тольятти, ул. какая то, д. какой то</div>
+  </div>
+
+  <div class="contact-item">
+    <div class="contact-icon">💬</div>
+    <div class="contact-info">Telegram: <a href="https://t.me/Juice_Wrld5" target="_blank">@Juice_Wrld5</a></div>
+  </div>
+
+</div>
+
+</body>
+</html>

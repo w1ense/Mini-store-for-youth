@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<title>FAQ - Часто задаваемые вопросы</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+  }
+
+  h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+  }
+
+  .faq-container {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .faq-item {
+    margin-bottom: 20px;
+    border-radius: 8px;
+    background-color: #fff;
+    padding: 15px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+
+  .question {
+    font-weight: bold;
+    font-size: 18px;
+    cursor: pointer;
+    position: relative;
+  }
+
+  .question::after {
+    content: '▼';
+    position: absolute;
+    right: 10px;
+    transition: transform 0.3s;
+  }
+
+  .question.active::after {
+    transform: rotate(180deg);
+  }
+
+  .answer {
+    display: none;
+    margin-top: 10px;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+</style>
+</head>
+<body>
+
+<h1>Часто задаваемые вопросы (FAQ)</h1>
+<div class="faq-container">
+
+  <div class="faq-item">
+    <div class="question" onclick="toggleAnswer(this)">Как связаться с поддержкой?</div>
+    <div class="answer">Вы можете связаться с нашей поддержкой по электронной почте nikitafrolovvv008@gmail.com@gmail.com или через онлайн-чат на сайте.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="question" onclick="toggleAnswer(this)">Где можно найти инструкцию по использованию?</div>
+    <div class="answer">Инструкция находится в разделе "Помощь" или "Руководство" на сайте, а также есть видеоруководства на нашем канале YouTube.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="question" onclick="toggleAnswer(this)">Можно ли оплатить через карту?</div>
+    <div class="answer">Да, мы принимаем платежи по банковским картам и через электронные платежные системы.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="question" onclick="toggleAnswer(this)">Как вернуть деньги, если что-то пошло не так?</div>
+    <div class="answer">Обратитесь в службу поддержки с описанием ситуации, и мы поможем вам решить вопрос с возвратом.</div>
+  </div>
+
+</div>
+
+<script>
+  function toggleAnswer(questionElement) {
+    const answer = questionElement.nextElementSibling;
+    const isVisible = answer.style.display === 'block';
+
+    // скрываем все ответы
+    document.querySelectorAll('.answer').forEach(ans => ans.style.display = 'none');
+    document.querySelectorAll('.question').forEach(q => q.classList.remove('active'));
+
+    if (!isVisible) {
+      answer.style.display = 'block';
+      questionElement.classList.add('active');
+    }
+  }
+</script>
+
+</body>
+</html>

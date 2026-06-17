@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Мини-магазин в молодежном стиле</title>
+
+<style>
+:root {
+  --bg-color: linear-gradient(135deg, #861515, #00f2fe);
+  --text-color: #fff;
+  --button-bg: linear-gradient(45deg, #ff4e50, #f9d423);
+  --product-bg: rgba(255, 255, 255, 0.1);
+  --box-shadow: rgba(0, 0, 0, 0.2);
+}
+
+body 
+
+
+{
+  font-family: 'Poppins', sans-serif;
+  background: var(--bg-color);
+  margin: 0;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--text-color);
+  transition: background 0.5s, color 0.5s;
+}
+
+/* Кнопка переключения темы */
+.theme-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 10;
+}
+
+.theme-button {
+  padding: 12px 24px;
+  border-radius: 50px 20px 50px 20px;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2em;
+  font-weight: bold;
+  background: linear-gradient(135deg, #ff6f61, #6a82fb);
+  color: #ffffff;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  transition: all 0.3s ease;
+}
+
+.theme-button:hover {
+  transform: translateY(-3px) scale(1.05);
+}
+
+/* Заголовок сайта */
+h1 {
+  font-size: 3em;
+  margin-bottom: 10px;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* Поиск */
+.search-container {
+  margin-bottom: 30px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.search-box {
+  padding: 12px 20px;
+  font-size: 1.2em;
+  border-radius: 30px;
+  border: none;
+  width: 300px;
+}
+
+/* Магазин с товарами */
+.shop {
+  display: grid;
+  grid-template-columns: repeat(3, 220px);
+  gap: 20px;
+  justify-content: center;
+}
+
+.product {
+  background: var(--product-bg);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  box-shadow: 0 8px 20px var(--box-shadow);
+  padding: 20px;
+  text-align: center;
+  transition: 0.3s;
+}
+
+.product:hover {
+  transform: translateY(-10px);
+}
+
+.product img {
+  width: 100%;
+  border-radius: 15px;
+}
+
+.price {
+  color: #ffdd57;
+}
+
+a.btn {
+  display: inline-block;
+  background: linear-gradient(45deg, #ff4e50, #f9d423);
+  border-radius: 30px;
+  padding: 10px 20px;
+  color: #fff;
+  text-decoration: none;
+  margin-top: 10px;
+}
+
+/* Окно чата */
+ #chatModal {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 300px;
+    height: 400px;
+    background: #eee;
+    border-radius: 10px;
+    display: none; /* скрыто по умолчанию */
+    flex-direction: column;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    z-index: 1000;
+  }
+
+#chatHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #999;   /* Темнее для выделения */
+    padding: 5px 10px;
+    border-radius: 8px;
+  }
+
+ #chatContent {
+      flex: 1;
+      background: #c0c0c0;
+      border: 1px solid #ccc;
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+      border-radius: 8px;
+      padding: 10px;
+      overflow-y: auto;
+      margin-bottom: 10px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 1em;
+      color: #333;
+    }
+
+    #chatContent p {
+      margin: 8px 0;
+      padding: 8px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      line-height: 1.4;
+    }
+
+#chatInputContainer {
+  display: flex;
+}
+
+#chatInput {
+    width: calc(100% - 40px);
+    padding: 8px;
+    margin-top: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+
+#closeChatBtn {
+  margin-left: 10px;
+  padding: 8px 12px;
+  border: none;
+  background-color: #ff4e50;
+  color: #fff;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+#closeChatBtn:hover {
+  background-color: #cc3a45;
+}
+
+/* Панель поддержки */
+.support-panel {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 240px;
+  padding: 15px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+  animation: fadeInUp 0.5s ease;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.support-panel:hover {
+  transform: translateY(-5px) scale(1.02);
+}
+
+.light-theme .support-panel {
+  background: rgba(255,255,255,0.7);
+}
+
+.support-panel h3 {
+  margin: 0 0 10px;
+}
+
+.support-panel a {
+  display: block;
+  padding: 8px 10px;
+  margin: 6px 0;
+  border-radius: 10px;
+  text-decoration: none;
+  color: white;
+  background: rgba(255,255,255,0.05);
+  transition: 0.25s;
+}
+
+.support-panel a:hover {
+  background: linear-gradient(45deg, #ff4e50, #f9d423);
+  transform: translateX(5px);
+}
+
+.light-theme .support-panel a {
+  color: black;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Тема светлая для тела */
+body.light-theme {
+  --bg-color: #252525;
+}
+</style>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+
+<div class="theme-toggle">
+  <button class="theme-button" id="toggleTheme">Темная тема</button>
+</div>
+
+<h1>Мини-магазин молодежи</h1>
+
+<div class="search-container">
+  <input type="text" class="search-box" placeholder="Искать что-то..." />
+</div>
+
+<div class="shop">
+  <div class="product">
+    <img src="photo/hudi.jpeg" alt="Кофты" />
+    <h2>Кофты</h2>
+    <div class="price">Цена: от 1500 ₽</div>
+    <a href="hudi.html" class="btn">Перейти</a>
+  </div>
+  <div class="product">
+    <img src="photo/kross.jpeg" alt="Кроссовки" />
+    <h2>Кроссовки</h2>
+    <div class="price">Цена: от 2000 ₽</div>
+    <a href="kross.html" class="btn">Перейти</a>
+  </div>
+  <div class="product">
+    <img src="photo/jins.webp" alt="Джинсы" />
+    <h2>Джинсы</h2>
+    <div class="price">Цена: от 1500 ₽</div>
+    <a href="jins.html" class="btn">Перейти</a>
+  </div>
+  <div class="product">
+    <img src="photo/i.webp" alt="Нижнее белье" />
+    <h2>Нижнее белье</h2>
+    <div class="price">Цена: от 1200 ₽</div>
+    <a href="i.html" class="btn">Перейти</a>
+  </div>
+  <div class="product">
+    <img src="photo/socks.jpg" alt="Носки" />
+    <h2>Носки</h2>
+    <div class="price">Цена: от 100 ₽</div>
+    <a href="socks.html" class="btn">Перейти</a>
+  </div>
+  <div class="product">
+    <img src="photo/per.jpeg" alt="Перчатки" />
+    <h2>Перчатки</h2>
+    <div class="price">Цена: от 500 ₽</div>
+    <a href="per.html" class="btn">Перейти</a>
+  </div>
+</div>
+
+<!-- Модальное окно чата -->
+<div id="chatModal">
+  <div id="chatHeader">
+    <strong>Чат с ботом</strong>
+    <button id="closeChatBtn">Закрыть</button>
+  </div>
+  <!-- Контент -->
+  <div id="chatContent"></div>
+  <!-- Поле ввода -->
+  <input type="text" id="chatInput" placeholder="Введите сообщение..." />
+</div>
+
+<!-- Панель поддержки -->
+<div class="support-panel">
+  <h3>💬 Поддержка</h3>
+  <a href="#chat" onclick="openChat()">💬 Онлайн-чат</a>
+  <a href="https://t.me/Juice_Wrld5" target="_blank">📧 Написать нам</a>
+  <a href="faq.html">❓ FAQ</a>
+  <a href="contacts.html">📞 Контакты</a>
+</div>
+
+<script>
+const toggleButton = document.getElementById('toggleTheme');
+toggleButton.onclick = () => {
+  document.body.classList.toggle('light-theme');
+  if (document.body.classList.contains('light-theme')) {
+    toggleButton.textContent = 'Светлая тема';
+  } else {
+    toggleButton.textContent = 'Темная тема';
+  }
+};
+
+// Открытие окна чата
+function openChat() {
+  document.getElementById('chatModal').style.display = 'flex';
+}
+
+// Закрытие окна чата по кнопке
+document.getElementById('closeChatBtn').onclick = () => {
+  document.getElementById('chatModal').style.display = 'none';
+};
+</script>
+
+<script>
+  // Открыть чат
+  function openChat() {
+    document.getElementById('chatModal').style.display = 'flex';
+  }
+
+  // Закрыть чат
+  document.getElementById('closeChatBtn').onclick = () => {
+    document.getElementById('chatModal').style.display = 'none';
+  };
+
+  // Отправка сообщения по Enter
+document.getElementById('chatInput').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter' && this.value.trim() !== '') {
+    addMessage('Вы: ' + this.value);
+    this.value = '';
+
+    // Бот отвечает автоматически
+    setTimeout(() => {
+      botReply();
+    }, 500); // задержка в полсекунды
+  }
+});
+
+  // Функция для добавления сообщения
+function addMessage(message) {
+  const chatContent = document.getElementById('chatContent');
+  const messageElem = document.createElement('p');
+  messageElem.textContent = message;
+  chatContent.appendChild(messageElem);
+  chatContent.scrollTop = chatContent.scrollHeight;
+}
+
+// Функция, которая отвечает бота
+function botReply() {
+  const responses = [
+    'Принято!',
+    'Могу помочь чем-то еще?',
+    'Спасибо за сообщение.',
+    'Пожалуйста, уточните ваш вопрос.',
+    'Я вас слушаю.',
+    'Это интересный вопрос!'
+  ];
+  const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+  addMessage('Бот: ' + randomResponse);
+}
+</script>
+
+<script>
+const searchBox = document.querySelector('.search-box');
+const products = document.querySelectorAll('.product');
+
+searchBox.addEventListener('input', function() {
+  const query = this.value.trim().toLowerCase();
+  products.forEach(product => {
+    const title = product.querySelector('h2').textContent.toLowerCase();
+    if (title.includes(query)) {
+      product.style.display = '';
+    } else {
+      product.style.display = 'none';
+    }
+  });
+});
+</script>
+
+</body>
+</html>

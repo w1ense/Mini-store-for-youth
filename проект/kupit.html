@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Оформление покупки</title>
+<!-- Подключаем шрифты и стили -->
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+body {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  color: #fff;
+  transition: background 0.5s, color 0.5s;
+}
+/* Тема светлая и темная */
+body.light-theme {
+  background: #fff;
+  color: #222;
+}
+body.dark-theme {
+  background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+  color: #fff;
+}
+
+/* Верхний левый блок с кнопками */
+.top-left-buttons {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* Общий стиль кнопок */
+.toggle-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 30px;
+  background: linear-gradient(135deg, #4facfe, #00f2fe);
+  color: #fff;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1em;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  transition: all 0.3s ease, transform 0.2s;
+}
+.toggle-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+}
+.toggle-btn:active {
+  transform: scale(0.98);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* Заголовок с анимацией */
+.header {
+  text-align: center;
+  padding: 40px 20px 20px;
+  position: relative;
+  overflow: hidden;
+}
+.header h1 {
+  font-size: 2.5em;
+  margin: 0;
+  animation: fadeInDown 1s ease;
+}
+@keyframes fadeInDown {
+  0% { opacity: 0; transform: translateY(-30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Основная часть */
+.content {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 20px;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  max-width: 1200px;
+  margin: 0 auto;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  flex-wrap: wrap;
+  animation: fadeIn 1.5s ease;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Блок товара */
+.product-card {
+  flex: 1 1 45%;
+  background: rgba(255,255,255,0.2);
+  border-radius: 15px;
+  padding: 20px;
+  margin: 10px;
+  max-width: 500px;
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.product-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.3);
+}
+.product-image {
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  transition: transform 0.3s;
+}
+.product-image:hover {
+  transform: scale(1.05);
+}
+.product-title {
+  font-size: 1.8em;
+  margin-bottom: 10px;
+}
+.product-price {
+  font-size: 1.5em;
+  color: #ffd700;
+  margin-bottom: 20px;
+}
+.product-description {
+  font-size: 1em;
+  line-height: 1.4;
+}
+
+/* Блок оплаты */
+.payment-section {
+  flex: 1 1 45%;
+  background: rgba(255,255,255,0.2);
+  border-radius: 15px;
+  padding: 20px;
+  margin: 10px;
+  max-width: 500px;
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
+  animation: fadeIn 1s ease;
+}
+.payment-section h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.payment-methods {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.payment-method {
+  background: transparent;
+  border: 2px solid #fff;
+  padding: 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-size: 1em;
+}
+.payment-method:hover {
+  background-color: rgba(255,255,255,0.3);
+  border-color: #ffd700;
+}
+.payment-method input[type="radio"] {
+  margin-right: 10px;
+  accent-color: #ffd700;
+}
+.confirm-btn {
+  display: block;
+  width: 100%;
+  padding: 15px;
+  margin-top: 20px;
+  font-size: 1.2em;
+  background: #ffd700;
+  color: #222;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.confirm-btn:hover {
+  background: #e6c200;
+}
+
+/* Адаптив */
+@media(max-width: 768px) {
+  .content {
+    flex-direction: column;
+  }
+  .product-card, .payment-section {
+    max-width: 100%;
+    flex: 1 1 100%;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- Верхний левый блок с кнопками -->
+<div class="top-left-buttons">
+  <button class="toggle-btn" id="backBtn" title="Вернуться на предыдущую страницу">← Назад</button>
+</div>
+
+<div class="header">
+  <h1>Оформление покупки</h1>
+</div>
+
+<div class="content">
+  <!-- Блок с товаром -->
+  <div class="product-card" id="productInfo">
+    <div class="product-title" id="productTitle">Стильный товар</div>
+    <div class="product-description" id="productDesc">
+      Этот товар сделает вашу жизнь ярче! Высокое качество и стильный дизайн.
+    </div>
+  </div>
+
+  <!-- Блок с оплатой -->
+  <div class="payment-section">
+    <h2>Выберите способ оплаты</h2>
+    <form id="paymentForm">
+      <div class="payment-methods">
+        <label class="payment-method">
+          <input type="radio" name="payment" value="Карта" checked />
+          Кредитная/Дебетовая карта
+        </label>
+        <label class="payment-method">
+          <input type="radio" name="payment" value="Яндекс.Деньги" />
+          Яндекс.Деньги
+        </label>
+        <label class="payment-method">
+          <input type="radio" name="payment" value="Тинькофф" />
+          Тинькофф
+        </label>
+        <label class="payment-method">
+          <input type="radio" name="payment" value="Bitcoin" />
+          Bitcoin
+        </label>
+      </div>
+      <button type="submit" class="confirm-btn">Оплатить</button>
+    </form>
+  </div>
+</div>
+
+<!-- Скрипт обработки -->
+<script>
+  // Динамическая вставка информации о товаре (можете расширить, если нужно)
+  const productInfo = {
+    title: "Стильный товар",
+    price: "₽4999",
+    description: "Этот товар сделает вашу жизнь ярче! Высокое качество и стильный дизайн."
+  };
+
+  window.onload = () => {
+    // Обработка кнопки "Назад"
+    document.getElementById('backBtn').addEventListener('click', () => {
+      console.log('Кнопка нажата. История длиной:', history.length);
+      if (history.length > 1) {
+        history.back();
+      } else {
+        alert('Нет предыдущей страницы');
+      }
+    });
+
+    // Возможна вставка данных о товаре, если нужно
+    document.getElementById('productTitle').innerText = productInfo.title;
+    document.getElementById('productDesc').innerText = productInfo.description;
+
+    // Обработка формы оплаты, по желанию
+    document.getElementById('paymentForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const selectedPayment = document.querySelector('input[name="payment"]:checked').value;
+      alert(`Вы выбрали способ оплаты: ${selectedPayment}`);
+      // Здесь можно добавить логику для перехода или обработки платежа
+    });
+  };
+</script>
+
+</body>
+</html>

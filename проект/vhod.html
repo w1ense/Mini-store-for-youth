@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Вход в аккаунт</title>
+<style>
+  :root {
+    --bg-gradient: linear-gradient(135deg, #74ebd5, #ACB6E5);
+    --text-color: #fff;
+    --border-color: #fff;
+    --button-bg: rgba(255, 255, 255, 0.2);
+    --button-hover-bg: #fff;
+    --button-hover-color: #333;
+    --small-button-font-size: 0.9em;
+  }
+  
+  /* Тёмная тема */
+  body.dark {
+    --bg-gradient: linear-gradient(135deg, #222, #555);
+    --text-color: #eee;
+    --border-color: #eee;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    background: var(--bg-gradient);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+
+  .login-container {
+    background: rgba(255,255,255,0.9);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    max-width: 350px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+  }
+
+  /* Верхний правый блок с переключением темы */
+  .top-right-controls {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 10;
+  }
+
+  /* Кнопка переключения темы */
+  .theme-toggle {
+    padding: 8px 12px; 
+    font-size: var(--small-button-font-size);
+    background: transparent;
+    border: 2px solid var(--border-color);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: var(--text-color);
+  }
+
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  form {
+    width: 100%;
+  }
+
+  label {
+    display: block;
+    margin-top: 8px;
+    margin-bottom: 4px;
+  }
+
+  input[type="text"], input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 4px;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+
+  button {
+    width: 100%;
+    padding: 12px;
+    background-color: #74ebd5;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  button:hover {
+    background-color: #66d0c1;
+  }
+
+  .message {
+    margin-top: 15px;
+    text-align: center;
+    color: green;
+  }
+
+  /* Кнопка регистрации */
+  .register-btn {
+    margin-top: 15px;
+    padding: 12px;
+    width: 100%;
+    background: none;
+    border: 2px solid #74ebd5;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    background-color: transparent;
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  .register-btn:hover {
+    background-color: #74ebd5;
+    color: #fff;
+  }
+</style>
+</head>
+<body>
+
+<!-- Верхний правый блок с переключением темы -->
+<div class="top-right-controls">
+  <button class="theme-toggle" id="themeBtn">Тёмная тема</button>
+</div>
+
+<div class="login-container">
+  <h2>Вход в аккаунт</h2>
+  <form id="loginForm">
+    <label for="username">Имя пользователя:</label>
+    <input type="text" id="username" placeholder="Ваше имя" required />
+
+    <label for="password">Пароль:</label>
+    <input type="password" id="password" placeholder="Пароль" required />
+
+    <button type="submit">Войти</button>
+  </form>
+
+  <div class="message" id="message"></div>
+
+  <!-- Кнопка регистрации -->
+  <button class="register-btn" onclick="window.location.href='registr.html'">Регистрация</button>
+</div>
+
+<script>
+  // Инициализация переключения темы
+  function initThemeSwitch() {
+    const themeBtn = document.getElementById('themeBtn');
+    const body = document.body;
+
+    // Проверка сохранённой темы в localStorage
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+      body.classList.add('dark');
+      themeBtn.textContent = 'Светлая тема'; // чтобы по логике переключать
+    } else {
+      body.classList.remove('dark');
+      themeBtn.textContent = 'Тёмная тема';
+    }
+
+    // Обработчик переключения
+    themeBtn.onclick = () => {
+      body.classList.toggle('dark');
+      if (body.classList.contains('dark')) {
+        themeBtn.textContent = 'Светлая тема'; // при активной тёмной теме
+        localStorage.setItem('theme', 'dark');
+      } else {
+        themeBtn.textContent = 'Тёмная тема';
+        localStorage.setItem('theme', 'light');
+      }
+    };
+  }
+
+  // Обработка формы входа
+  document.getElementById('loginForm').onsubmit = function(e) {
+    e.preventDefault();
+
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+    const messageDiv = document.getElementById('message');
+
+    // Сохраняем данные в localStorage
+    localStorage.setItem('user', JSON.stringify({ username, password }));
+
+    // Показываем сообщение и перенаправляем
+    messageDiv.textContent = 'Данные сохранены! Вы успешно вошли. Перенаправление...';
+
+    setTimeout(() => {
+      window.location.href = 'index.html'; // измените на нужную страницу
+    }, 1000);
+  };
+
+  window.onload = function() {
+    initThemeSwitch();
+    // Предварительно заполняем имя пользователя при необходимости
+    const userData = localStorage.getItem('user');
+    if (userData) {
+      const user = JSON.parse(userData);
+      document.getElementById('username').value = user.username;
+    }
+  };
+</script>
+
+</body>
+</html>

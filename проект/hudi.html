@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Мини-магазин худи и кофт</title>
+<!-- Шрифт -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --text-color: #fff;
+    --accent-color: #4facfe;
+    --card-bg: rgba(255, 255, 255, 0.1);
+    --shadow: rgba(0, 0, 0, 0.2);
+    --body-bg: linear-gradient(270deg, #ff7e5f, #feb47b, #86a8e7, #91eac9);
+    --body-text: #fff;
+  }
+
+  /* Светлая тема переменные */
+  body.light-theme {
+    --body-bg: linear-gradient(270deg, #f3f4f6, #e0e0e0, #f3f4f6);
+    --body-text: #222;
+    --card-bg: rgba(255, 255, 255, 0.8);
+    --shadow: rgba(0, 0, 0, 0.1);
+  }
+
+  /* Темная тема переменные */
+  body.dark-theme {
+    --body-bg: linear-gradient(270deg, #1e1e2f, #2c2c4a, #1e1e2f);
+    --body-text: #ddd;
+    --card-bg: rgba(40, 40, 60, 0.8);
+    --shadow: rgba(0, 0, 0, 0.5);
+  }
+
+  body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    min-height: 100vh;
+    background: var(--body-bg);
+    background-size: 1600% 1600%;
+    animation: backgroundAnim 20s ease infinite alternate;
+    transition: background 0.5s, color 0.5s;
+    color: var(--body-text);
+  }
+
+  @keyframes backgroundAnim {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
+  }
+
+  /* Верхний левый блок с кнопками */
+  .top-left-buttons {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  /* Общий стиль кнопок */
+  .toggle-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 30px;
+    background: linear-gradient(135deg, #4facfe, #00f2fe);
+    color: #fff;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1em;
+    box-shadow: 0 4px 8px var(--shadow);
+    transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+  }
+
+  .toggle-btn:hover {
+    background: linear-gradient(135deg, #00f2fe, #4facfe);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px var(--shadow);
+  }
+
+  /* Заголовок */
+  h1 {
+    font-size: 3em;
+    margin-top: 80px;
+    margin-bottom: 30px;
+    text-align: center;
+    letter-spacing: 2px;
+    opacity: 0;
+    animation: fadeIn 1s forwards;
+  }
+
+  @keyframes fadeIn {
+    to { opacity: 1; }
+  }
+
+  /* Каталог */
+  .catalog {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 30px;
+    width: 100%;
+    max-width: 1200px;
+    padding: 0 20px;
+  }
+
+  /* Карточки товаров */
+  .card {
+    background: var(--card-bg);
+    border-radius: 15px;
+    box-shadow: 0 4px 12px var(--shadow);
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 0.6s forwards;
+  }
+
+  @keyframes fadeUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .card img {
+    width: 100%;
+    height: auto;
+  }
+
+  .info {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .name {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+
+  .price {
+    font-size: 1.1em;
+    margin-bottom: 15px;
+    color: var(--accent-color);
+  }
+
+  /* Стиль для "Купить" как ссылки-кнопки */
+  .buy-btn {
+    padding: 10px 20px;
+    border-radius: 25px;
+    background: linear-gradient(135deg, #4facfe, #00f2fe);
+    color: #fff;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+  }
+
+  .buy-btn:hover {
+    background: linear-gradient(135deg, #00f2fe, #4facfe);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  }
+</style>
+</head>
+<body class="light-theme">
+
+<!-- Верхний левый блок с кнопками -->
+<div class="top-left-buttons">
+  <button class="toggle-btn" id="backBtn" title="Вернуться на предыдущую страницу">← Назад</button>
+  <button class="toggle-btn" id="themeBtn">Переключить на темную</button>
+</div>
+
+<h1>Каталог худи и кофт</h1>
+
+<div class="catalog">
+  <!-- 9 товаров -->
+  <div class="card">
+    <img src="photo/black.webp" alt="Кофта 1" />
+    <div class="info">
+      <div class="name">худи черная</div>
+      <div class="price">от 1500 ₽</div>
+      <a href="kupit.html" class="buy-btn">Купить</a>
+    </div>
+  </div>
+  <div class="card">
+    <img src="photo/swuit.webp" alt="Кофта 2" />
+    <div class="info">
+      <div class="name">свитшот</div>
+      <div class="price">от 1700 ₽</div>
+      <a href="kupit.html" class="buy-btn">Купить</a>
+    </div>
+  </div>
+  <div class="card">
+    <img src="photo/long.webp" alt="Кофта 3" />
+    <div class="info">
+      <div class="name">лонгслив</div>
+      <div class="price">от 1500 ₽</div>
+      <a href="kupit.html" class="buy-btn">Купить</a>
+    </div>
+  </div>
+  <div class="card">
+    <img src="photo/utk.webp" alt="Кофта 4" />
+    <div class="info">
+      <div class="name">Утепленные кофты</div>
+      <div class="price">от 1800 ₽</div>
+      <a href="kupit.html" class="buy-btn">Купить</a>
+    </div>
+  </div>
+  <div class="card">
+    <img src="photo/swag.webp " alt="Кофта 5" />
+    <div class="info">
+      <div class="name">Стильная кофта</div>
+      <div class="price">от 2000 ₽</div>
+      <a href="kupit.html" class="buy-btn">Купить</a>
+    </div>
+  </div>
+  <div class="card">
+    <img src="photo/zip.webp" alt="Кофта 6" />
+    <div class="info">
+    <div class="name">Зип-худи</div>
+      <div class="price">от 1700 ₽</div>
+      <a href="kupit.html" class="buy-btn">Купить</a>
+    </div>
+  </div>
+  <div class="card">
+    <img src="photo/vin.webp" alt="Кофта 7" />
+    <div class="info">
+      <div class="name">Винтаж кофта</div>
+      <div class="price">от 1900 ₽</div>
+      <a href="kupit.html" class="buy-btn">Купить</a>
+    </div>
+  </div>
+  <div class="card">
+    <img src="photo/klass.webp" alt="Кофта 8" />
+    <div class="info">
+    <div class="name">Классическая кофта</div>
+      <div class="price">от 1650 ₽</div>
+      <a href="kupit.html" class="buy-btn">Купить</a>
+    </div>
+  </div>
+  <div class="card">
+    <img src="photo/pov.webp" alt="Кофта 9" />
+    <div class="info">
+      <div class="name">Повседневная кофта</div>
+      <div class="price">от 1500 ₽</div>
+      <a href="kupit.html" class="buy-btn">Купить</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Обработчик переключения темы
+  const themeBtn = document.getElementById('themeBtn');
+  themeBtn.addEventListener('click', () => {
+    document.body.classList.toggle('dark-theme');
+    document.body.classList.toggle('light-theme');
+    if (document.body.classList.contains('dark-theme')) {
+      themeBtn.textContent = 'Переключить на светлую';
+    } else {
+      themeBtn.textContent = 'Переключить на темную';
+    }
+  });
+
+  // Обработчик кнопки "Назад"
+  document.getElementById('backBtn').addEventListener('click', () => {
+    window.history.back();
+  });
+</script>
+
+</body>
+</html>
+
+
+
+
